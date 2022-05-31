@@ -2,6 +2,7 @@ package com.example.easyrepot;
 
 import com.example.easyreport.Excel;
 import lombok.extern.log4j.Log4j2;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -25,8 +26,9 @@ class ExcelTest {
 
         String path = "/tmp/people_" + UUID.randomUUID() + ".xlsx";
         Excel excel = Excel.builder()
-                .localDatePattern("YYYY-MM-dd")
-                .localDateTimePattern("YYYY-MM-dd HH:mm")
+                .localDatePattern("dd/MM/yyyy")
+                .localDateTimePattern("dd/MM/yyyy HH:mm")
+                .headerColor(IndexedColors.YELLOW)
                 .build();
 
         try(FileOutputStream outputStream = new FileOutputStream(path)) {

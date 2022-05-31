@@ -29,11 +29,13 @@ public class Excel {
 
     private final String localDatePattern;
     private final String localDateTimePattern;
+    private final IndexedColors headerColor;
 
     @Builder
-    public Excel(String localDatePattern, String localDateTimePattern) {
+    public Excel(String localDatePattern, String localDateTimePattern, IndexedColors headerColor) {
         this.localDatePattern = localDatePattern == null ? "yyyy-MM-dd" : localDatePattern;
         this.localDateTimePattern = localDateTimePattern == null ? "YYYY-MM-dd HH:mm" : localDateTimePattern;
+        this.headerColor = headerColor == null ? IndexedColors.WHITE : headerColor;
     }
 
     public void write(OutputStream output, List<?> data) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, IOException {
@@ -47,7 +49,7 @@ public class Excel {
             DateTimeFormatter localDateTimeFormatter = DateTimeFormatter.ofPattern(localDateTimePattern);
             
             CellStyle headerStyle = workbook.createCellStyle();
-            headerStyle.setFillForegroundColor(IndexedColors.YELLOW.index);
+            headerStyle.setFillForegroundColor(headerColor.index);
             headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
             headerStyle.setBorderTop(BorderStyle.THIN);
             headerStyle.setBorderRight(BorderStyle.THIN);
