@@ -94,6 +94,7 @@ public class Excel {
 
     private Map<Integer, List<?>> extractData(List<?> data) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         List<String> headers = Arrays.stream(data.get(0).getClass().getDeclaredFields())
+                .filter(f -> f.isAnnotationPresent(ReportColumn.class))
                 .map(f -> f.getAnnotation(ReportColumn.class).title())
                 .toList();
 
